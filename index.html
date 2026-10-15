@@ -1,12 +1,12 @@
+from pathlib import Path
 
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Academic website of an astrophysics PhD researcher studying fast radio bursts and the cosmic baryon distribution.">
-  <title>Samir | Astrophysics & Cosmology</title>
-
+  <meta name="description" content="Academic website of Samir Sethi, an astrophysics PhD researcher studying fast radio bursts, the circumgalactic medium, and the cosmic baryon distribution.">
+  <title>Samir Sethi | Astrophysics &amp; Cosmology</title>
 
   <style>
     :root {
@@ -20,13 +20,11 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background: var(--background);
       line-height: 1.75;
@@ -176,6 +174,50 @@
       font-size: 0.82rem;
     }
 
+    .cv-entry { margin: 0 0 1.5rem; }
+
+    .cv-entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px 20px;
+      flex-wrap: wrap;
+    }
+
+    .cv-entry-top h3 { margin: 0; }
+
+    .cv-date {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .cv-institution {
+      margin: 0.2rem 0;
+      font-weight: 500;
+    }
+
+    .cv-section-list {
+      margin-top: 0.5rem;
+      padding-left: 1.3rem;
+    }
+
+    .cv-section-list li { margin-bottom: 0.3rem; }
+
+    .cv-skills {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .cv-skill-group {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 18px;
+    }
+
+    .cv-skill-group h3 { margin-top: 0; }
+
     footer {
       background: white;
       border-top: 1px solid var(--line);
@@ -185,7 +227,7 @@
     }
 
     @media (max-width: 600px) {
-      .research-grid { grid-template-columns: 1fr; }
+      .research-grid, .cv-skills { grid-template-columns: 1fr; }
       .hero { padding-top: 42px; }
       nav { gap: 12px; }
     }
@@ -195,7 +237,7 @@
 <body>
   <header>
     <div class="container nav">
-      <a class="brand" href="#">Samir | Astrophysics</a>
+      <a class="brand" href="#">Samir Sethi | Astrophysics</a>
       <nav aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
@@ -209,16 +251,16 @@
 
   <div class="hero">
     <div class="container">
-      <div class="eyebrow">Astrophysics · Research</div>
+      <div class="eyebrow">Astrophysics · Cosmology</div>
       <h1>Samir Sethi</h1>
       <p class="intro">
-        PhD researcher in astrophysics interested in fast radio bursts,
-        the distribution of cosmic baryons, and the circumgalactic
-        and intergalactic media.
+        PhD researcher in astrophysics and cosmology at IIT Indore, studying fast radio bursts,
+        the circumgalactic and intergalactic media, and the distribution of cosmic baryons.
       </p>
       <div class="links">
         <a class="link" href="#research">Explore my research →</a>
-        <a class="link" href="#contact">Get in touch</a>
+        <a class="link" href="#cv">View academic CV</a>
+        <a class="link" href="mailto:phd2401121003@iiti.ac.in">Contact me</a>
       </div>
     </div>
   </div>
@@ -227,22 +269,17 @@
     <section id="about">
       <h2>About me</h2>
       <p>
-        I am a PhD researcher in astrophysics at IIT Indore,
-        investigating the distribution of ionised baryonic matter
-        in the Universe using fast radio bursts (FRBs).
+        I am a PhD researcher in Astrophysics &amp; Cosmology at the Indian Institute of Technology
+        Indore, investigating the distribution of ionised baryonic matter in the Universe using
+        fast radio bursts (FRBs).
       </p>
       <p>
-        My research focuses on using FRB dispersion measures to probe
-        the circumgalactic medium (CGM) and intergalactic medium (IGM),
-        addressing the missing-baryon problem. I work with cosmological
-        simulations, halo gas-density models, and forecasts for future
-        FRB surveys to investigate how observations can constrain the
-        baryon content of dark matter haloes and the physical properties
-        of circumgalactic gas.
+        My research uses FRB dispersion measures to probe the circumgalactic medium (CGM) and
+        intergalactic medium (IGM), with the aim of improving our understanding of the missing-baryon
+        problem. I work with cosmological simulations, halo gas-density models, FRB population
+        modelling, and forecasts for future surveys, including the Square Kilometre Array (SKA).
       </p>
-      <p class="muted">
-        PhD Researcher in Astrophysics · IIT Indore, India
-      </p>
+      <p class="muted">PhD Researcher · IIT Indore, India · Supervisor: Dr. Priyanka Singh</p>
     </section>
 
     <section id="research">
@@ -250,40 +287,28 @@
       <div class="research-grid">
         <article class="card">
           <h3>Fast radio bursts</h3>
-          <p>
-            Using FRB dispersion measures as probes of ionised
-            matter along cosmological sightlines.
-          </p>
+          <p>Using FRB dispersion measures to trace ionised matter along cosmological sightlines.</p>
           <span class="tag">FRBs</span>
           <span class="tag">Dispersion measures</span>
         </article>
 
         <article class="card">
-          <h3>The missing baryon problem</h3>
-          <p>
-            Investigating the distribution of ordinary matter
-            between galaxies and across the cosmic web.
-          </p>
+          <h3>The missing-baryon problem</h3>
+          <p>Investigating the distribution of ordinary matter between galaxies and across the cosmic web.</p>
           <span class="tag">IGM</span>
           <span class="tag">Cosmology</span>
         </article>
 
         <article class="card">
           <h3>Circumgalactic medium</h3>
-          <p>
-            Studying ionised gas around dark matter haloes and
-            its contribution to the observed FRB dispersion measure.
-          </p>
+          <p>Studying ionised gas around dark matter haloes and its contribution to observed FRB dispersion measures.</p>
           <span class="tag">CGM</span>
           <span class="tag">Halo gas</span>
         </article>
 
         <article class="card">
           <h3>Simulations and forecasts</h3>
-          <p>
-            Connecting halo populations and gas-density models
-            with forecasts for future FRB surveys, including SKA.
-          </p>
+          <p>Connecting halo populations and gas-density models with forecasts for future FRB surveys, including SKA.</p>
           <span class="tag">Simulations</span>
           <span class="tag">Fisher forecasts</span>
         </article>
@@ -293,121 +318,165 @@
     <section id="publications">
       <h2>Publications</h2>
       <p>
-        My publications, preprints, and research manuscripts
-        will be listed here.
-      </p>
-      <p class="muted">
-        Publication records and links will be added as they become available.
+        Publication and preprint details will be added here as they become available.
       </p>
     </section>
 
     <section id="talks">
-      <h2>Talks & Conferences</h2>
+      <h2>Talks &amp; conferences</h2>
+
       <div class="item">
-        <h3>Research presentations</h3>
+        <h3>“Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts”</h3>
         <p class="muted">
-          Conference presentations, invited talks, and posters
-          will be listed here.
+          Oral presentation · Bridging Observations and Simulations in CGM–IGM Science ·
+          4–6 September 2026 · Central University of Himachal Pradesh, Dharamshala, India.
+        </p>
+      </div>
+
+      <div class="item">
+        <h3>Fast Radio Transient Sky (FTSky) 2025</h3>
+        <p class="muted">
+          Conference attendee · International Centre for Theoretical Sciences (ICTS),
+          Bengaluru, India.
         </p>
       </div>
     </section>
 
-
-
-
-    
     <section id="cv">
-      <h2>Curriculum Vitae</h2>
+      <h2>Academic Curriculum Vitae</h2>
 
       <div class="card">
         <h3>Education</h3>
-        <div class="item">
-          <strong>Ph.D. in Astrophysics</strong>
-          <p class="muted">
-            Indian Institute of Technology Indore, India
-          </p>
-          <p>
-            Research on fast radio bursts, the circumgalactic medium,
-            and the distribution of cosmic baryons.
+
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Ph.D. in Astrophysics &amp; Cosmology</h3>
+            <span class="cv-date">2024–Present</span>
+          </div>
+          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore), India</p>
+          <p><strong>Thesis:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
+          <p><strong>Supervisor:</strong> Dr. Priyanka Singh</p>
+        </div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>M.Sc. in Physics and Astronomy</h3>
+            <span class="cv-date">2021–2023</span>
+          </div>
+          <p class="cv-institution">National Institute of Technology Rourkela, India</p>
+        </div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>B.Sc. in Physics</h3>
+            <span class="cv-date">2018–2021</span>
+          </div>
+          <p class="cv-institution">K. J. Somaiya College of Science and Commerce, India</p>
+        </div>
+
+        <h3>Research experience</h3>
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Ph.D. Researcher</h3>
+            <span class="cv-date">2024–Present</span>
+          </div>
+          <p class="cv-institution">IIT Indore · Astrophysics &amp; Cosmology</p>
+          <ul class="cv-section-list">
+            <li>Investigating the distribution of ionised baryons using fast radio burst dispersion measures.</li>
+            <li>Modelling the circumgalactic medium and its contribution to the dispersion measure of extragalactic FRBs.</li>
+            <li>Working with cosmological simulations, halo catalogues, halo gas-density profiles, and FRB population models.</li>
+            <li>Developing forecasts to investigate constraints on CGM properties with future FRB surveys, including SKA.</li>
+          </ul>
+        </div>
+
+        <h3>Teaching experience</h3>
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Teaching Assistant — AA201: Introduction to Astronomy</h3>
+            <span class="cv-date">Autumn 2025 &amp; Autumn 2026</span>
+          </div>
+          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore)</p>
+          <ul class="cv-section-list">
+            <li>Conducting tutorials and helping students understand astronomical concepts and solve problems.</li>
+            <li>Preparing tutorial solutions and supporting assignments and quizzes.</li>
+            <li>Assisting students through doubt-clearing sessions and academic guidance.</li>
+          </ul>
+        </div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Teaching Assistant — Flight Mechanics and Classical Control</h3>
+            <span class="cv-date">Spring 2026</span>
+          </div>
+          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore)</p>
+        </div>
+
+        <h3>Conference participation and presentations</h3>
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Oral presentation</h3>
+            <span class="cv-date">4–6 September 2026</span>
+          </div>
+          <p><strong>Title:</strong> “Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts”</p>
+          <p class="cv-institution">
+            Bridging Observations and Simulations in CGM–IGM Science, Central University of Himachal Pradesh,
+            Dharamshala, Himachal Pradesh, India.
           </p>
         </div>
 
-        <div class="item">
-          <strong>Previous Education</strong>
-          <p class="muted">
-            Add your previous degree, institution, and year of completion.
-          </p>
+        <div class="cv-entry">
+          <div class="cv-entry-top">
+            <h3>Conference attendee — Fast Radio Transient Sky (FTSky) 2025</h3>
+          </div>
+          <p class="cv-institution">International Centre for Theoretical Sciences (ICTS), Bengaluru, India</p>
         </div>
 
-        <h3>Research Experience</h3>
-        <div class="item">
-          <strong>Ph.D. Research</strong>
-          <p>
-            Investigating the distribution of ionised baryons using
-            fast radio burst dispersion measures, cosmological
-            simulations, and models of halo gas.
-          </p>
-          <p>
-        Developing forecasts to explore constraints on the
-        circumgalactic medium using future FRB surveys, including SKA.
-      </p>
-    </div>
+        <h3>Technical skills</h3>
+        <div class="cv-skills">
+          <div class="cv-skill-group">
+            <h3>Programming and scientific libraries</h3>
+            <p>Python, NumPy, Pandas, Matplotlib, SciPy, Astropy, emcee, Corner, GetDist</p>
+          </div>
+          <div class="cv-skill-group">
+            <h3>Research methods</h3>
+            <p>Cosmological simulations, FRB dispersion-measure modelling, CGM gas-density modelling, Fisher-matrix forecasts, halo mass functions and catalogues, FRB population modelling, Bayesian parameter estimation</p>
+          </div>
+          <div class="cv-skill-group">
+            <h3>Computing and tools</h3>
+            <p>Linux/Ubuntu, Jupyter Notebook, HPC and remote servers, Conda, Git/GitHub, LaTeX</p>
+          </div>
+        </div>
 
-    <h3>Technical Skills</h3>
-    <p>
-      <span class="tag">Python</span>
-      <span class="tag">NumPy</span>
-      <span class="tag">Pandas</span>
-      <span class="tag">Matplotlib</span>
-      <span class="tag">Astropy</span>
-      <span class="tag">Cosmological Simulations</span>
-      <span class="tag">Statistical Inference</span>
-    </p>
-
-    <h3>Conferences and Presentations</h3>
-    <div class="item">
-      <strong>Fast Radio Bursts &amp; Extragalactic Radio Transients</strong>
-      <p class="muted">
-        Oral presentation, IIT Kanpur, 23–25 October 2026.
-      </p>
-      <p>
-        Add your presentation title here.
-      </p>
-    </div>
-
-    <h3>Publications</h3>
-    <p>
-      Add your publications and preprints here when available.
-    </p>
-  </div>
+        <h3>Examinations</h3>
+        <p>Joint Admission Test for Masters (JAM); Graduate Aptitude Test in Engineering (GATE).</p>
+      </div>
     </section>
 
-
-
-
-
-    
     <section id="contact">
       <h2>Contact</h2>
       <p>
-        I welcome academic discussions and collaborations related
-        to FRBs, the CGM–IGM, and cosmological baryon studies.
+        I welcome academic discussions and collaborations related to fast radio bursts,
+        the CGM–IGM, and cosmological baryon studies.
       </p>
       <p>
         Email: <a href="mailto:phd2401121003@iiti.ac.in">phd2401121003@iiti.ac.in</a>
       </p>
       <p>
-        <a href="https://orcid.org/">ORCID</a> ·
-        <a href="https://ui.adsabs.harvard.edu/">NASA ADS</a> ·
-        <a href="https://github.com/">GitHub</a>
+        GitHub: <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">github.com/samirsethi1998</a>
       </p>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      © 2026 Samir · Academic website · Built with GitHub Pages
+      © 2026 Samir Sethi · Academic website · Built with GitHub Pages
     </div>
   </footer>
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created revised website HTML: {path}")
+print(f"File size: {path.stat().st_size:,} bytes")
