@@ -19,7 +19,6 @@
       --muted: #5d6a78;
       --line: #dfe3e8;
       --accent: #1f4e79;
-      --accent-soft: #e7eef5;
       --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
       --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -32,7 +31,6 @@
         --muted: #9aa8b6;
         --line: #26313c;
         --accent: #8fb8de;
-        --accent-soft: #1d2b3a;
       }
     }
 
@@ -43,7 +41,6 @@
     body {
       margin: 0;
       font-family: var(--sans);
-      font-size: 1rem;
       line-height: 1.7;
       color: var(--ink);
       background: var(--bg);
@@ -53,33 +50,29 @@
     a:hover { text-decoration: underline; text-underline-offset: 3px; }
     a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-    h1, h2, h3 { font-family: var(--serif); color: var(--ink); line-height: 1.25; margin: 0; }
+    h1, h2, h3, h4 { font-family: var(--serif); color: var(--ink); line-height: 1.3; margin: 0; }
 
-    /* ---------- Layout ---------- */
     .page {
-      width: min(100% - 40px, 1120px);
+      width: min(100% - 40px, 1080px);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
+      grid-template-columns: 260px minmax(0, 1fr);
       gap: 72px;
     }
 
+    /* Sidebar */
     .sidebar {
       position: sticky;
       top: 0;
       align-self: start;
       padding: 64px 0 40px;
-      max-height: 100vh;
-      overflow-y: auto;
     }
-
-    .sidebar h1 { font-size: 2.1rem; font-weight: 600; letter-spacing: -0.01em; }
-
+    .sidebar h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.01em; }
     .role { margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
 
-    .side-nav { margin-top: 32px; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
+    .side-nav { margin-top: 30px; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
     .side-nav a {
-      padding: 5px 0 5px 16px;
+      padding: 4px 0 4px 16px;
       margin-left: -1px;
       border-left: 2px solid transparent;
       color: var(--muted);
@@ -88,92 +81,52 @@
     .side-nav a:hover { color: var(--ink); text-decoration: none; }
     .side-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
 
-    .side-links { margin-top: 28px; font-size: 0.92rem; line-height: 1.9; }
-    .side-links div { color: var(--muted); }
+    .side-links { margin-top: 26px; font-size: 0.92rem; line-height: 1.9; }
 
-    /* ---------- Content ---------- */
-    main { padding: 64px 0 40px; min-width: 0; }
-
-    section { padding-bottom: 56px; scroll-margin-top: 40px; }
+    /* Content */
+    main { padding: 64px 0 24px; min-width: 0; }
+    section { padding-bottom: 52px; scroll-margin-top: 40px; }
 
     h2 {
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      padding-bottom: 12px;
+      padding-bottom: 10px;
       margin-bottom: 22px;
       border-bottom: 1px solid var(--line);
     }
-
     h3 { font-size: 1.05rem; font-weight: 600; }
 
     p { margin: 0 0 1rem; max-width: 68ch; }
     p:last-child { margin-bottom: 0; }
-
-    .lede { font-family: var(--serif); font-size: 1.25rem; line-height: 1.6; color: var(--ink); }
+    .lede { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; }
     .muted { color: var(--muted); }
-    .small { font-size: 0.92rem; }
 
-    /* Research topics */
-    .topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .topic {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 20px 22px;
-    }
-    .topic p { margin: 8px 0 12px; font-size: 0.94rem; color: var(--muted); }
-    .tag {
-      display: inline-block;
-      margin: 0 4px 4px 0;
-      padding: 1px 9px;
-      font-size: 0.8rem;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border-radius: 3px;
-    }
+    /* Research */
+    .topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .topic { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 18px 20px; }
+    .topic p { margin: 6px 0 0; font-size: 0.94rem; color: var(--muted); }
 
-    /* Talks */
-    .talk { padding: 0 0 20px 20px; margin-bottom: 20px; border-left: 2px solid var(--accent); }
-    .talk:last-child { margin-bottom: 0; }
-    .talk p { margin: 4px 0 0; }
-    .badge {
-      display: inline-block;
-      margin-bottom: 6px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--accent);
-    }
-
-    /* CV */
-    .cv-group { margin-bottom: 40px; }
-    .cv-group > h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      font-family: var(--sans);
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .entry {
+    /* Talks and CV rows */
+    .row {
       display: grid;
       grid-template-columns: 150px minmax(0, 1fr);
       gap: 4px 24px;
-      padding: 14px 0;
+      padding: 16px 0;
       border-top: 1px solid var(--line);
     }
-    .entry:first-of-type { border-top: 0; padding-top: 0; }
+    .row:first-of-type { border-top: 0; padding-top: 0; }
     .date { color: var(--muted); font-size: 0.9rem; padding-top: 3px; }
-    .entry h4 { margin: 0; font-family: var(--serif); font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
-    .entry .where { margin: 2px 0 0; color: var(--muted); font-size: 0.94rem; }
-    .entry .detail { margin: 8px 0 0; font-size: 0.94rem; }
-    .entry ul { margin: 8px 0 0; padding-left: 1.2rem; font-size: 0.94rem; max-width: 68ch; }
-    .entry li { margin-bottom: 4px; }
+    .row h4 { font-size: 1.05rem; font-weight: 600; }
+    .where { margin: 2px 0 0; color: var(--muted); font-size: 0.94rem; }
+    .detail { margin: 8px 0 0; font-size: 0.94rem; }
+    .row ul { margin: 8px 0 0; padding-left: 1.2rem; font-size: 0.94rem; max-width: 68ch; }
+    .row li { margin-bottom: 4px; }
 
-    .skills { display: grid; gap: 0; }
-    .skill { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 24px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.94rem; }
-    .skill:first-child { border-top: 0; padding-top: 0; }
-    .skill dt { font-weight: 500; }
-    .skill dd { margin: 0; color: var(--muted); }
+    .cv-group { margin-bottom: 36px; }
+    .cv-group > h3 { font-family: var(--sans); font-size: 0.95rem; color: var(--muted); margin-bottom: 14px; }
+    .cv-group dl { margin: 0; }
+    .row dt { font-weight: 500; font-size: 0.94rem; }
+    .row dd { margin: 0; color: var(--muted); font-size: 0.94rem; }
 
     footer {
       grid-column: 2;
@@ -183,26 +136,26 @@
       font-size: 0.88rem;
     }
 
-    /* ---------- Responsive ---------- */
     @media (max-width: 880px) {
       .page { grid-template-columns: 1fr; gap: 0; }
-      .sidebar { position: static; max-height: none; padding: 40px 0 8px; }
-      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; border-left: 0; margin-top: 22px; }
+      .sidebar { position: static; padding: 40px 0 8px; }
+      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; border-left: 0; margin-top: 20px; }
       .side-nav a { padding: 2px 0; margin: 0; border-left: 0; border-bottom: 2px solid transparent; }
       .side-nav a.active { border-bottom-color: var(--accent); }
-      main { padding-top: 36px; }
+      .side-links { margin-top: 18px; }
+      main { padding-top: 32px; }
       footer { grid-column: 1; }
     }
 
     @media (max-width: 600px) {
       .topics { grid-template-columns: 1fr; }
-      .entry, .skill { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
       .date { padding-top: 0; order: -1; }
-      .lede { font-size: 1.12rem; }
+      .lede { font-size: 1.1rem; }
     }
 
     @media print {
-      .sidebar .side-nav, footer { display: none; }
+      .side-nav, footer { display: none; }
       .page { display: block; }
       body { background: #fff; color: #000; }
     }
@@ -213,23 +166,19 @@
   <div class="page">
     <aside class="sidebar">
       <h1>Samir Sethi</h1>
-      <p class="role">
-        PhD researcher, Astrophysics &amp; Cosmology<br>
-        Indian Institute of Technology Indore, India
-      </p>
+      <p class="role">PhD researcher, Astrophysics &amp; Cosmology<br>IIT Indore, India</p>
 
       <nav class="side-nav" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
         <a href="#publications">Publications</a>
         <a href="#talks">Talks</a>
-        <a href="#cv">Curriculum vitae</a>
-        <a href="#contact">Contact</a>
+        <a href="#cv">CV</a>
       </nav>
 
       <div class="side-links">
-        <a href="mailto:phd2401121003@iiti.ac.in">Email</a><br>
-        <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:phd2401121003@iiti.ac.in">phd2401121003@iiti.ac.in</a><br>
+        <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">github.com/samirsethi1998</a>
       </div>
     </aside>
 
@@ -238,46 +187,33 @@
         <h2>About</h2>
         <p class="lede">
           I study how ordinary matter is distributed in the Universe, using fast radio bursts
-          as probes of the ionised gas they travel through.
+          as probes of the ionised gas they pass through.
         </p>
         <p>
-          I am a PhD researcher in Astrophysics &amp; Cosmology at the Indian Institute of
-          Technology Indore, supervised by
-          <strong>Dr. Priyanka Singh</strong>. My work uses FRB dispersion measures to probe
-          the circumgalactic medium (CGM) and the intergalactic medium (IGM), with the aim of
-          improving our understanding of the missing-baryon problem.
-        </p>
-        <p>
-          I work with cosmological simulations, halo gas-density models, FRB population
-          modelling, and forecasts for future surveys, including the Square Kilometre Array (SKA).
+          I am a PhD student at the Indian Institute of Technology Indore, supervised by
+          Dr. Priyanka Singh. I welcome discussions and collaborations on fast radio bursts,
+          the CGM–IGM, and cosmological baryon studies.
         </p>
       </section>
 
       <section id="research">
-        <h2>Research interests</h2>
+        <h2>Research</h2>
         <div class="topics">
           <article class="topic">
             <h3>Fast radio bursts</h3>
-            <p>Using FRB dispersion measures to trace ionised matter along cosmological sightlines.</p>
-            <span class="tag">FRBs</span><span class="tag">Dispersion measures</span>
+            <p>Using dispersion measures to trace ionised matter along cosmological sightlines, with FRB population modelling.</p>
           </article>
-
           <article class="topic">
-            <h3>The missing-baryon problem</h3>
-            <p>Investigating the distribution of ordinary matter between galaxies and across the cosmic web.</p>
-            <span class="tag">IGM</span><span class="tag">Cosmology</span>
+            <h3>Missing baryons</h3>
+            <p>Mapping where ordinary matter sits between galaxies and across the cosmic web.</p>
           </article>
-
           <article class="topic">
             <h3>Circumgalactic medium</h3>
-            <p>Studying ionised gas around dark matter haloes and its contribution to observed FRB dispersion measures.</p>
-            <span class="tag">CGM</span><span class="tag">Halo gas</span>
+            <p>Modelling ionised gas around dark matter haloes and its share of the observed dispersion measure.</p>
           </article>
-
           <article class="topic">
             <h3>Simulations and forecasts</h3>
-            <p>Connecting halo populations and gas-density models with forecasts for future FRB surveys, including SKA.</p>
-            <span class="tag">Simulations</span><span class="tag">Fisher forecasts</span>
+            <p>Combining cosmological simulations and halo gas-density models to forecast constraints from future surveys, including the Square Kilometre Array (SKA).</p>
           </article>
         </div>
       </section>
@@ -290,19 +226,20 @@
       <section id="talks">
         <h2>Talks and conferences</h2>
 
-        <div class="talk">
-          <span class="badge">Oral presentation, 4–6 September 2026</span>
-          <h3>Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</h3>
-          <p class="muted small">
-            Bridging Observations and Simulations in CGM–IGM Science.
-            Central University of Himachal Pradesh, Dharamshala, India.
-          </p>
+        <div class="row">
+          <div class="date">4–6 Sept 2026</div>
+          <div>
+            <h4>Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</h4>
+            <p class="where">Oral presentation. Bridging Observations and Simulations in CGM–IGM Science, Central University of Himachal Pradesh, Dharamshala, India</p>
+          </div>
         </div>
 
-        <div class="talk">
-          <span class="badge">Attendee, 2025</span>
-          <h3>Fast Radio Transient Sky (FTSky) 2025</h3>
-          <p class="muted small">International Centre for Theoretical Sciences (ICTS), Bengaluru, India.</p>
+        <div class="row">
+          <div class="date">2025</div>
+          <div>
+            <h4>Fast Radio Transient Sky (FTSky) 2025</h4>
+            <p class="where">Attendee. International Centre for Theoretical Sciences (ICTS), Bengaluru, India</p>
+          </div>
         </div>
       </section>
 
@@ -312,17 +249,16 @@
         <div class="cv-group">
           <h3>Education</h3>
 
-          <div class="entry">
+          <div class="row">
             <div class="date">2024 – present</div>
             <div>
               <h4>Ph.D., Astrophysics &amp; Cosmology</h4>
               <p class="where">Indian Institute of Technology Indore, India</p>
-              <p class="detail"><strong>Thesis:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
-              <p class="detail"><strong>Supervisor:</strong> Dr. Priyanka Singh</p>
+              <p class="detail">Thesis: Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts<br>Supervisor: Dr. Priyanka Singh</p>
             </div>
           </div>
 
-          <div class="entry">
+          <div class="row">
             <div class="date">2021 – 2023</div>
             <div>
               <h4>M.Sc., Physics and Astronomy</h4>
@@ -330,7 +266,7 @@
             </div>
           </div>
 
-          <div class="entry">
+          <div class="row">
             <div class="date">2018 – 2021</div>
             <div>
               <h4>B.Sc., Physics</h4>
@@ -340,40 +276,21 @@
         </div>
 
         <div class="cv-group">
-          <h3>Research experience</h3>
+          <h3>Teaching</h3>
 
-          <div class="entry">
-            <div class="date">2024 – present</div>
-            <div>
-              <h4>Ph.D. Researcher</h4>
-              <p class="where">IIT Indore, Astrophysics &amp; Cosmology</p>
-              <ul>
-                <li>Investigating the distribution of ionised baryons using fast radio burst dispersion measures.</li>
-                <li>Modelling the circumgalactic medium and its contribution to the dispersion measure of extragalactic FRBs.</li>
-                <li>Working with cosmological simulations, halo catalogues, halo gas-density profiles, and FRB population models.</li>
-                <li>Developing forecasts for constraints on CGM properties with future FRB surveys, including SKA.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="cv-group">
-          <h3>Teaching experience</h3>
-
-          <div class="entry">
+          <div class="row">
             <div class="date">Autumn 2025, Autumn 2026</div>
             <div>
               <h4>Teaching Assistant, AA201: Introduction to Astronomy</h4>
               <p class="where">IIT Indore</p>
               <ul>
-                <li>Conducting tutorials and helping students understand astronomical concepts and solve problems.</li>
-                <li>Preparing tutorial solutions and supporting assignments and quizzes.</li>
-                <li>Assisting students through doubt-clearing sessions and academic guidance.</li>
+                <li>Conduct tutorials and prepare solutions, assignments and quizzes.</li>
+                <li>Run doubt-clearing sessions and give academic guidance.</li>
               </ul>
             </div>
           </div>
 
-          <div class="entry">
+          <div class="row">
             <div class="date">Spring 2026</div>
             <div>
               <h4>Teaching Assistant, Flight Mechanics and Classical Control</h4>
@@ -383,71 +300,34 @@
         </div>
 
         <div class="cv-group">
-          <h3>Conference participation</h3>
-
-          <div class="entry">
-            <div class="date">4–6 September 2026</div>
-            <div>
-              <h4>Oral presentation</h4>
-              <p class="where">Bridging Observations and Simulations in CGM–IGM Science, Central University of Himachal Pradesh, Dharamshala, India</p>
-              <p class="detail"><strong>Title:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
-            </div>
-          </div>
-
-          <div class="entry">
-            <div class="date">2025</div>
-            <div>
-              <h4>Attendee, Fast Radio Transient Sky (FTSky) 2025</h4>
-              <p class="where">International Centre for Theoretical Sciences (ICTS), Bengaluru, India</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cv-group">
-          <h3>Technical skills</h3>
-          <dl class="skills" style="margin:0">
-            <div class="skill">
+          <h3>Skills</h3>
+          <dl>
+            <div class="row">
               <dt>Programming</dt>
               <dd>Python, NumPy, Pandas, Matplotlib, SciPy, Astropy, emcee, Corner, GetDist</dd>
             </div>
-            <div class="skill">
-              <dt>Research methods</dt>
-              <dd>Cosmological simulations, FRB dispersion-measure modelling, CGM gas-density modelling, Fisher-matrix forecasts, halo mass functions and catalogues, FRB population modelling, Bayesian parameter estimation</dd>
+            <div class="row">
+              <dt>Methods</dt>
+              <dd>Fisher-matrix forecasts, Bayesian parameter estimation, halo mass functions and catalogues, CGM gas-density and FRB dispersion-measure modelling</dd>
             </div>
-            <div class="skill">
-              <dt>Computing and tools</dt>
-              <dd>Linux/Ubuntu, Jupyter Notebook, HPC and remote servers, Conda, Git/GitHub, LaTeX</dd>
+            <div class="row">
+              <dt>Tools</dt>
+              <dd>Linux/Ubuntu, Jupyter, HPC and remote servers, Conda, Git/GitHub, LaTeX</dd>
             </div>
           </dl>
         </div>
 
         <div class="cv-group">
           <h3>Examinations</h3>
-          <div class="entry">
-            <div class="date"></div>
-            <div>Joint Admission Test for Masters (JAM); Graduate Aptitude Test in Engineering (GATE)</div>
-          </div>
+          <p>Joint Admission Test for Masters (JAM); Graduate Aptitude Test in Engineering (GATE)</p>
         </div>
-      </section>
-
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>
-          I welcome academic discussions and collaborations related to fast radio bursts,
-          the CGM–IGM, and cosmological baryon studies.
-        </p>
-        <p>
-          Email: <a href="mailto:phd2401121003@iiti.ac.in">phd2401121003@iiti.ac.in</a><br>
-          GitHub: <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">github.com/samirsethi1998</a>
-        </p>
       </section>
     </main>
 
-    <footer>© 2026 Samir Sethi. Hosted on GitHub Pages.</footer>
+    <footer>© 2026 Samir Sethi</footer>
   </div>
 
   <script>
-    // Highlight the current section in the navigation
     (function () {
       var links = document.querySelectorAll('.side-nav a');
       var map = {};
