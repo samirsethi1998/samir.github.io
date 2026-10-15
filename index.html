@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Academic website of an astrophysics PhD researcher studying fast radio bursts and the cosmic baryon distribution.">
+  <title>Samir | Astrophysics Research</title>
+
+  <style>
+    :root {
+      --navy: #17324d;
+      --blue: #356b91;
+      --text: #293746;
+      --muted: #657587;
+      --line: #e2e8ee;
+      --paper: #ffffff;
+      --background: #f6f8fa;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(100% - 40px, 1000px);
+      margin: auto;
+    }
+
+    header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .brand {
+      color: var(--navy);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      background: var(--paper);
+      padding: 64px 0 55px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.3rem, 6vw, 3.7rem);
+      font-weight: 500;
+      margin: 12px 0;
+    }
+
+    .intro {
+      max-width: 720px;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .link {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: white;
+      font-size: 0.93rem;
+    }
+
+    main { padding: 25px 0 60px; }
+
+    section {
+      padding: 30px 0;
+      scroll-margin-top: 20px;
+    }
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 22px;
+    }
+
+    .card p, .item p { margin-top: 6px; }
+
+    .item {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .item:last-child { border-bottom: 0; }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 3px 4px 3px 0;
+      padding: 3px 9px;
+      background: #eaf1f6;
+      color: var(--navy);
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--line);
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 600px) {
+      .research-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 42px; }
+      nav { gap: 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">Samir | Astrophysics</a>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#talks">Talks</a>
+        <a href="#cv">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="container">
+      <div class="eyebrow">Astrophysics · Research</div>
+      <h1>Samir</h1>
+      <p class="intro">
+        PhD researcher in astrophysics interested in fast radio bursts,
+        the distribution of cosmic baryons, and the circumgalactic
+        and intergalactic media.
+      </p>
+      <div class="links">
+        <a class="link" href="#research">Explore my research →</a>
+        <a class="link" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section id="about">
+      <h2>About me</h2>
+      <p>
+        I am a PhD researcher in astrophysics working to understand
+        the distribution of baryonic matter in the Universe. My research
+        uses fast radio bursts (FRBs) and their dispersion measures
+        to investigate the cosmic baryon budget and the properties
+        of gas surrounding galaxies.
+      </p>
+      <p>
+        I am particularly interested in connecting cosmological
+        simulations with FRB observations and exploring how upcoming
+        radio surveys can constrain the physical properties of the
+        circumgalactic medium.
+      </p>
+      <p class="muted">
+        Affiliation: Add your department, institute, and supervisor here.
+      </p>
+    </section>
+
+    <section id="research">
+      <h2>Research interests</h2>
+      <div class="research-grid">
+        <article class="card">
+          <h3>Fast radio bursts</h3>
+          <p>
+            Using FRB dispersion measures as probes of ionised
+            matter along cosmological sightlines.
+          </p>
+          <span class="tag">FRBs</span>
+          <span class="tag">Dispersion measures</span>
+        </article>
+
+        <article class="card">
+          <h3>The missing baryon problem</h3>
+          <p>
+            Investigating the distribution of ordinary matter
+            between galaxies and across the cosmic web.
+          </p>
+          <span class="tag">IGM</span>
+          <span class="tag">Cosmology</span>
+        </article>
+
+        <article class="card">
+          <h3>Circumgalactic medium</h3>
+          <p>
+            Studying ionised gas around dark matter haloes and
+            its contribution to the observed FRB dispersion measure.
+          </p>
+          <span class="tag">CGM</span>
+          <span class="tag">Halo gas</span>
+        </article>
+
+        <article class="card">
+          <h3>Simulations and forecasts</h3>
+          <p>
+            Connecting halo populations and gas-density models
+            with forecasts for future FRB surveys, including SKA.
+          </p>
+          <span class="tag">Simulations</span>
+          <span class="tag">Fisher forecasts</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+      <p>
+        My publications and preprints will be listed here.
+        Links will be added as the list is updated.
+      </p>
+      <p class="muted">
+        Add your published papers, preprints, DOI links, and
+        ADS entries here. Do not list unpublished work as published.
+      </p>
+    </section>
+
+    <section id="talks">
+      <h2>Talks & conferences</h2>
+      <div class="item">
+        <h3>Research presentations</h3>
+        <p class="muted">
+          Add presentation titles, conference names, dates,
+          and links to slides or abstracts.
+        </p>
+      </div>
+    </section>
+
+    <section id="cv">
+      <h2>Curriculum vitae</h2>
+      <p>
+        For my academic background, research experience,
+        and other details, please refer to my CV.
+      </p>
+      <p class="muted">
+        Upload your PDF CV to this repository and link it here.
+      </p>
+      <!-- After uploading your CV, replace the placeholder below. -->
+      <!-- Example: <a href="assets/cv.pdf">Download my CV (PDF)</a> -->
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        I welcome academic discussions and collaborations related
+        to FRBs, the CGM–IGM, and cosmological baryon studies.
+      </p>
+      <p>
+        Email: <span class="muted">Add your institutional email</span>
+      </p>
+      <p>
+        <a href="https://orcid.org/">ORCID</a> ·
+        <a href="https://ui.adsabs.harvard.edu/">NASA ADS</a> ·
+        <a href="https://github.com/">GitHub</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Samir · Academic website · Built with GitHub Pages
+    </div>
+  </footer>
+</body>
+</html>
