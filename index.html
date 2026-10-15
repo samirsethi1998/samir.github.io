@@ -1,482 +1,471 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Academic website of Samir Sethi, an astrophysics PhD researcher studying fast radio bursts, the circumgalactic medium, and the cosmic baryon distribution.">
+  <meta name="description" content="Academic website of Samir Sethi, an astrophysics PhD researcher at IIT Indore studying fast radio bursts, the circumgalactic medium, and the cosmic baryon distribution.">
+  <meta name="author" content="Samir Sethi">
   <title>Samir Sethi | Astrophysics &amp; Cosmology</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --navy: #17324d;
-      --blue: #356b91;
-      --text: #293746;
-      --muted: #657587;
-      --line: #e2e8ee;
-      --paper: #ffffff;
-      --background: #f6f8fa;
+      --bg: #fbfbf9;
+      --surface: #ffffff;
+      --ink: #1c2530;
+      --muted: #5d6a78;
+      --line: #dfe3e8;
+      --accent: #1f4e79;
+      --accent-soft: #e7eef5;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11171d;
+        --surface: #172029;
+        --ink: #e6ebf0;
+        --muted: #9aa8b6;
+        --line: #26313c;
+        --accent: #8fb8de;
+        --accent-soft: #1d2b3a;
+      }
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: var(--background);
-      line-height: 1.75;
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--bg);
     }
 
-    a {
-      color: var(--blue);
-      text-decoration: none;
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+    h1, h2, h3 { font-family: var(--serif); color: var(--ink); line-height: 1.25; margin: 0; }
+
+    /* ---------- Layout ---------- */
+    .page {
+      width: min(100% - 40px, 1120px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 72px;
     }
 
-    a:hover { text-decoration: underline; }
-
-    .container {
-      width: min(100% - 40px, 1000px);
-      margin: auto;
+    .sidebar {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      padding: 64px 0 40px;
+      max-height: 100vh;
+      overflow-y: auto;
     }
 
-    header {
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
-    }
+    .sidebar h1 { font-size: 2.1rem; font-weight: 600; letter-spacing: -0.01em; }
 
-    .nav {
-      min-height: 70px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
+    .role { margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
 
-    .brand {
-      color: var(--navy);
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      font-size: 0.92rem;
-    }
-
-    .hero {
-      background: var(--paper);
-      padding: 64px 0 55px;
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3 {
-      color: var(--navy);
-      line-height: 1.3;
-    }
-
-    h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.3rem, 6vw, 3.7rem);
-      font-weight: 500;
-      margin: 12px 0;
-    }
-
-    .intro {
-      max-width: 720px;
-      font-size: 1.08rem;
+    .side-nav { margin-top: 32px; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
+    .side-nav a {
+      padding: 5px 0 5px 16px;
+      margin-left: -1px;
+      border-left: 2px solid transparent;
       color: var(--muted);
+      font-size: 0.95rem;
     }
+    .side-nav a:hover { color: var(--ink); text-decoration: none; }
+    .side-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
 
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
-    }
+    .side-links { margin-top: 28px; font-size: 0.92rem; line-height: 1.9; }
+    .side-links div { color: var(--muted); }
 
-    .link {
-      display: inline-block;
-      padding: 8px 15px;
-      border: 1px solid var(--line);
-      border-radius: 5px;
-      background: white;
-      font-size: 0.93rem;
-    }
+    /* ---------- Content ---------- */
+    main { padding: 64px 0 40px; min-width: 0; }
 
-    main { padding: 25px 0 60px; }
-
-    section {
-      padding: 30px 0;
-      scroll-margin-top: 20px;
-    }
+    section { padding-bottom: 56px; scroll-margin-top: 40px; }
 
     h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.8rem;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-
-    h3 {
-      font-size: 1.08rem;
-      margin-bottom: 6px;
-    }
-
-    .research-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 22px;
-    }
-
-    .card p, .item p { margin-top: 6px; }
-
-    .item {
-      padding: 15px 0;
+      font-size: 1.55rem;
+      font-weight: 600;
+      padding-bottom: 12px;
+      margin-bottom: 22px;
       border-bottom: 1px solid var(--line);
     }
 
-    .item:last-child { border-bottom: 0; }
+    h3 { font-size: 1.05rem; font-weight: 600; }
 
-    .muted {
-      color: var(--muted);
-      font-size: 0.94rem;
+    p { margin: 0 0 1rem; max-width: 68ch; }
+    p:last-child { margin-bottom: 0; }
+
+    .lede { font-family: var(--serif); font-size: 1.25rem; line-height: 1.6; color: var(--ink); }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.92rem; }
+
+    /* Research topics */
+    .topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .topic {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 20px 22px;
     }
-
+    .topic p { margin: 8px 0 12px; font-size: 0.94rem; color: var(--muted); }
     .tag {
       display: inline-block;
-      margin: 3px 4px 3px 0;
-      padding: 3px 9px;
-      background: #eaf1f6;
-      color: var(--navy);
-      border-radius: 4px;
+      margin: 0 4px 4px 0;
+      padding: 1px 9px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 3px;
+    }
+
+    /* Talks */
+    .talk { padding: 0 0 20px 20px; margin-bottom: 20px; border-left: 2px solid var(--accent); }
+    .talk:last-child { margin-bottom: 0; }
+    .talk p { margin: 4px 0 0; }
+    .badge {
+      display: inline-block;
+      margin-bottom: 6px;
       font-size: 0.82rem;
-    }
-
-    .cv-entry { margin: 0 0 1.5rem; }
-
-    .cv-entry-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px 20px;
-      flex-wrap: wrap;
-    }
-
-    .cv-entry-top h3 { margin: 0; }
-
-    .cv-date {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .cv-institution {
-      margin: 0.2rem 0;
       font-weight: 500;
+      color: var(--accent);
     }
 
-    .cv-section-list {
-      margin-top: 0.5rem;
-      padding-left: 1.3rem;
+    /* CV */
+    .cv-group { margin-bottom: 40px; }
+    .cv-group > h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: var(--sans);
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
-    .cv-section-list li { margin-bottom: 0.3rem; }
-
-    .cv-skills {
+    .entry {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 4px 24px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
     }
+    .entry:first-of-type { border-top: 0; padding-top: 0; }
+    .date { color: var(--muted); font-size: 0.9rem; padding-top: 3px; }
+    .entry h4 { margin: 0; font-family: var(--serif); font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
+    .entry .where { margin: 2px 0 0; color: var(--muted); font-size: 0.94rem; }
+    .entry .detail { margin: 8px 0 0; font-size: 0.94rem; }
+    .entry ul { margin: 8px 0 0; padding-left: 1.2rem; font-size: 0.94rem; max-width: 68ch; }
+    .entry li { margin-bottom: 4px; }
 
-    .cv-skill-group {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 18px;
-    }
-
-    .cv-skill-group h3 { margin-top: 0; }
+    .skills { display: grid; gap: 0; }
+    .skill { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 24px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.94rem; }
+    .skill:first-child { border-top: 0; padding-top: 0; }
+    .skill dt { font-weight: 500; }
+    .skill dd { margin: 0; color: var(--muted); }
 
     footer {
-      background: white;
+      grid-column: 2;
+      padding: 24px 0 48px;
       border-top: 1px solid var(--line);
-      padding: 22px 0;
       color: var(--muted);
       font-size: 0.88rem;
     }
 
+    /* ---------- Responsive ---------- */
+    @media (max-width: 880px) {
+      .page { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { position: static; max-height: none; padding: 40px 0 8px; }
+      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; border-left: 0; margin-top: 22px; }
+      .side-nav a { padding: 2px 0; margin: 0; border-left: 0; border-bottom: 2px solid transparent; }
+      .side-nav a.active { border-bottom-color: var(--accent); }
+      main { padding-top: 36px; }
+      footer { grid-column: 1; }
+    }
+
     @media (max-width: 600px) {
-      .research-grid, .cv-skills { grid-template-columns: 1fr; }
-      .hero { padding-top: 42px; }
-      nav { gap: 12px; }
+      .topics { grid-template-columns: 1fr; }
+      .entry, .skill { grid-template-columns: 1fr; }
+      .date { padding-top: 0; order: -1; }
+      .lede { font-size: 1.12rem; }
+    }
+
+    @media print {
+      .sidebar .side-nav, footer { display: none; }
+      .page { display: block; }
+      body { background: #fff; color: #000; }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container nav">
-      <a class="brand" href="#">Samir Sethi | Astrophysics</a>
-      <nav aria-label="Main navigation">
+  <div class="page">
+    <aside class="sidebar">
+      <h1>Samir Sethi</h1>
+      <p class="role">
+        PhD researcher, Astrophysics &amp; Cosmology<br>
+        Indian Institute of Technology Indore, India
+      </p>
+
+      <nav class="side-nav" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
         <a href="#publications">Publications</a>
         <a href="#talks">Talks</a>
-        <a href="#cv">CV</a>
+        <a href="#cv">Curriculum vitae</a>
         <a href="#contact">Contact</a>
       </nav>
-    </div>
-  </header>
 
-  <div class="hero">
-    <div class="container">
-      <div class="eyebrow">Astrophysics · Cosmology</div>
-      <h1>Samir Sethi</h1>
-      <p class="intro">
-        PhD researcher in astrophysics and cosmology at IIT Indore, studying fast radio bursts,
-        the circumgalactic and intergalactic media, and the distribution of cosmic baryons.
-      </p>
-      <div class="links">
-        <a class="link" href="#research">Explore my research →</a>
-        <a class="link" href="#cv">View academic CV</a>
-        <a class="link" href="mailto:phd2401121003@iiti.ac.in">Contact me</a>
+      <div class="side-links">
+        <a href="mailto:phd2401121003@iiti.ac.in">Email</a><br>
+        <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
-    </div>
-  </div>
+    </aside>
 
-  <main class="container">
-    <section id="about">
-      <h2>About me</h2>
-      <p>
-        I am a PhD researcher in Astrophysics &amp; Cosmology at the Indian Institute of Technology
-        Indore, investigating the distribution of ionised baryonic matter in the Universe using
-        fast radio bursts (FRBs).
-      </p>
-      <p>
-        My research uses FRB dispersion measures to probe the circumgalactic medium (CGM) and
-        intergalactic medium (IGM), with the aim of improving our understanding of the missing-baryon
-        problem. I work with cosmological simulations, halo gas-density models, FRB population
-        modelling, and forecasts for future surveys, including the Square Kilometre Array (SKA).
-      </p>
-      <p class="muted">PhD Researcher · IIT Indore, India · Supervisor: Dr. Priyanka Singh</p>
-    </section>
-
-    <section id="research">
-      <h2>Research interests</h2>
-      <div class="research-grid">
-        <article class="card">
-          <h3>Fast radio bursts</h3>
-          <p>Using FRB dispersion measures to trace ionised matter along cosmological sightlines.</p>
-          <span class="tag">FRBs</span>
-          <span class="tag">Dispersion measures</span>
-        </article>
-
-        <article class="card">
-          <h3>The missing-baryon problem</h3>
-          <p>Investigating the distribution of ordinary matter between galaxies and across the cosmic web.</p>
-          <span class="tag">IGM</span>
-          <span class="tag">Cosmology</span>
-        </article>
-
-        <article class="card">
-          <h3>Circumgalactic medium</h3>
-          <p>Studying ionised gas around dark matter haloes and its contribution to observed FRB dispersion measures.</p>
-          <span class="tag">CGM</span>
-          <span class="tag">Halo gas</span>
-        </article>
-
-        <article class="card">
-          <h3>Simulations and forecasts</h3>
-          <p>Connecting halo populations and gas-density models with forecasts for future FRB surveys, including SKA.</p>
-          <span class="tag">Simulations</span>
-          <span class="tag">Fisher forecasts</span>
-        </article>
-      </div>
-    </section>
-
-    <section id="publications">
-      <h2>Publications</h2>
-      <p>
-        Publication and preprint details will be added here as they become available.
-      </p>
-    </section>
-
-    <section id="talks">
-      <h2>Talks &amp; conferences</h2>
-
-      <div class="item">
-        <h3>“Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts”</h3>
-        <p class="muted">
-          Oral presentation · Bridging Observations and Simulations in CGM–IGM Science ·
-          4–6 September 2026 · Central University of Himachal Pradesh, Dharamshala, India.
+    <main>
+      <section id="about">
+        <h2>About</h2>
+        <p class="lede">
+          I study how ordinary matter is distributed in the Universe, using fast radio bursts
+          as probes of the ionised gas they travel through.
         </p>
-      </div>
-
-      <div class="item">
-        <h3>Fast Radio Transient Sky (FTSky) 2025</h3>
-        <p class="muted">
-          Conference attendee · International Centre for Theoretical Sciences (ICTS),
-          Bengaluru, India.
+        <p>
+          I am a PhD researcher in Astrophysics &amp; Cosmology at the Indian Institute of
+          Technology Indore, supervised by
+          <strong>Dr. Priyanka Singh</strong>. My work uses FRB dispersion measures to probe
+          the circumgalactic medium (CGM) and the intergalactic medium (IGM), with the aim of
+          improving our understanding of the missing-baryon problem.
         </p>
-      </div>
-    </section>
+        <p>
+          I work with cosmological simulations, halo gas-density models, FRB population
+          modelling, and forecasts for future surveys, including the Square Kilometre Array (SKA).
+        </p>
+      </section>
 
-    <section id="cv">
-      <h2>Academic Curriculum Vitae</h2>
+      <section id="research">
+        <h2>Research interests</h2>
+        <div class="topics">
+          <article class="topic">
+            <h3>Fast radio bursts</h3>
+            <p>Using FRB dispersion measures to trace ionised matter along cosmological sightlines.</p>
+            <span class="tag">FRBs</span><span class="tag">Dispersion measures</span>
+          </article>
 
-      <div class="card">
-        <h3>Education</h3>
+          <article class="topic">
+            <h3>The missing-baryon problem</h3>
+            <p>Investigating the distribution of ordinary matter between galaxies and across the cosmic web.</p>
+            <span class="tag">IGM</span><span class="tag">Cosmology</span>
+          </article>
 
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Ph.D. in Astrophysics &amp; Cosmology</h3>
-            <span class="cv-date">2024–Present</span>
-          </div>
-          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore), India</p>
-          <p><strong>Thesis:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
-          <p><strong>Supervisor:</strong> Dr. Priyanka Singh</p>
+          <article class="topic">
+            <h3>Circumgalactic medium</h3>
+            <p>Studying ionised gas around dark matter haloes and its contribution to observed FRB dispersion measures.</p>
+            <span class="tag">CGM</span><span class="tag">Halo gas</span>
+          </article>
+
+          <article class="topic">
+            <h3>Simulations and forecasts</h3>
+            <p>Connecting halo populations and gas-density models with forecasts for future FRB surveys, including SKA.</p>
+            <span class="tag">Simulations</span><span class="tag">Fisher forecasts</span>
+          </article>
         </div>
+      </section>
 
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>M.Sc. in Physics and Astronomy</h3>
-            <span class="cv-date">2021–2023</span>
-          </div>
-          <p class="cv-institution">National Institute of Technology Rourkela, India</p>
-        </div>
+      <section id="publications">
+        <h2>Publications</h2>
+        <p class="muted">Publication and preprint details will be added here as they become available.</p>
+      </section>
 
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>B.Sc. in Physics</h3>
-            <span class="cv-date">2018–2021</span>
-          </div>
-          <p class="cv-institution">K. J. Somaiya College of Science and Commerce, India</p>
-        </div>
+      <section id="talks">
+        <h2>Talks and conferences</h2>
 
-        <h3>Research experience</h3>
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Ph.D. Researcher</h3>
-            <span class="cv-date">2024–Present</span>
-          </div>
-          <p class="cv-institution">IIT Indore · Astrophysics &amp; Cosmology</p>
-          <ul class="cv-section-list">
-            <li>Investigating the distribution of ionised baryons using fast radio burst dispersion measures.</li>
-            <li>Modelling the circumgalactic medium and its contribution to the dispersion measure of extragalactic FRBs.</li>
-            <li>Working with cosmological simulations, halo catalogues, halo gas-density profiles, and FRB population models.</li>
-            <li>Developing forecasts to investigate constraints on CGM properties with future FRB surveys, including SKA.</li>
-          </ul>
-        </div>
-
-        <h3>Teaching experience</h3>
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Teaching Assistant — AA201: Introduction to Astronomy</h3>
-            <span class="cv-date">Autumn 2025 &amp; Autumn 2026</span>
-          </div>
-          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore)</p>
-          <ul class="cv-section-list">
-            <li>Conducting tutorials and helping students understand astronomical concepts and solve problems.</li>
-            <li>Preparing tutorial solutions and supporting assignments and quizzes.</li>
-            <li>Assisting students through doubt-clearing sessions and academic guidance.</li>
-          </ul>
-        </div>
-
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Teaching Assistant — Flight Mechanics and Classical Control</h3>
-            <span class="cv-date">Spring 2026</span>
-          </div>
-          <p class="cv-institution">Indian Institute of Technology Indore (IIT Indore)</p>
-        </div>
-
-        <h3>Conference participation and presentations</h3>
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Oral presentation</h3>
-            <span class="cv-date">4–6 September 2026</span>
-          </div>
-          <p><strong>Title:</strong> “Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts”</p>
-          <p class="cv-institution">
-            Bridging Observations and Simulations in CGM–IGM Science, Central University of Himachal Pradesh,
-            Dharamshala, Himachal Pradesh, India.
+        <div class="talk">
+          <span class="badge">Oral presentation, 4–6 September 2026</span>
+          <h3>Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</h3>
+          <p class="muted small">
+            Bridging Observations and Simulations in CGM–IGM Science.
+            Central University of Himachal Pradesh, Dharamshala, India.
           </p>
         </div>
 
-        <div class="cv-entry">
-          <div class="cv-entry-top">
-            <h3>Conference attendee — Fast Radio Transient Sky (FTSky) 2025</h3>
+        <div class="talk">
+          <span class="badge">Attendee, 2025</span>
+          <h3>Fast Radio Transient Sky (FTSky) 2025</h3>
+          <p class="muted small">International Centre for Theoretical Sciences (ICTS), Bengaluru, India.</p>
+        </div>
+      </section>
+
+      <section id="cv">
+        <h2>Curriculum vitae</h2>
+
+        <div class="cv-group">
+          <h3>Education</h3>
+
+          <div class="entry">
+            <div class="date">2024 – present</div>
+            <div>
+              <h4>Ph.D., Astrophysics &amp; Cosmology</h4>
+              <p class="where">Indian Institute of Technology Indore, India</p>
+              <p class="detail"><strong>Thesis:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
+              <p class="detail"><strong>Supervisor:</strong> Dr. Priyanka Singh</p>
+            </div>
           </div>
-          <p class="cv-institution">International Centre for Theoretical Sciences (ICTS), Bengaluru, India</p>
+
+          <div class="entry">
+            <div class="date">2021 – 2023</div>
+            <div>
+              <h4>M.Sc., Physics and Astronomy</h4>
+              <p class="where">National Institute of Technology Rourkela, India</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="date">2018 – 2021</div>
+            <div>
+              <h4>B.Sc., Physics</h4>
+              <p class="where">K. J. Somaiya College of Science and Commerce, India</p>
+            </div>
+          </div>
         </div>
 
-        <h3>Technical skills</h3>
-        <div class="cv-skills">
-          <div class="cv-skill-group">
-            <h3>Programming and scientific libraries</h3>
-            <p>Python, NumPy, Pandas, Matplotlib, SciPy, Astropy, emcee, Corner, GetDist</p>
-          </div>
-          <div class="cv-skill-group">
-            <h3>Research methods</h3>
-            <p>Cosmological simulations, FRB dispersion-measure modelling, CGM gas-density modelling, Fisher-matrix forecasts, halo mass functions and catalogues, FRB population modelling, Bayesian parameter estimation</p>
-          </div>
-          <div class="cv-skill-group">
-            <h3>Computing and tools</h3>
-            <p>Linux/Ubuntu, Jupyter Notebook, HPC and remote servers, Conda, Git/GitHub, LaTeX</p>
+        <div class="cv-group">
+          <h3>Research experience</h3>
+
+          <div class="entry">
+            <div class="date">2024 – present</div>
+            <div>
+              <h4>Ph.D. Researcher</h4>
+              <p class="where">IIT Indore, Astrophysics &amp; Cosmology</p>
+              <ul>
+                <li>Investigating the distribution of ionised baryons using fast radio burst dispersion measures.</li>
+                <li>Modelling the circumgalactic medium and its contribution to the dispersion measure of extragalactic FRBs.</li>
+                <li>Working with cosmological simulations, halo catalogues, halo gas-density profiles, and FRB population models.</li>
+                <li>Developing forecasts for constraints on CGM properties with future FRB surveys, including SKA.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <h3>Examinations</h3>
-        <p>Joint Admission Test for Masters (JAM); Graduate Aptitude Test in Engineering (GATE).</p>
-      </div>
-    </section>
+        <div class="cv-group">
+          <h3>Teaching experience</h3>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        I welcome academic discussions and collaborations related to fast radio bursts,
-        the CGM–IGM, and cosmological baryon studies.
-      </p>
-      <p>
-        Email: <a href="mailto:phd2401121003@iiti.ac.in">phd2401121003@iiti.ac.in</a>
-      </p>
-      <p>
-        GitHub: <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">github.com/samirsethi1998</a>
-      </p>
-    </section>
-  </main>
+          <div class="entry">
+            <div class="date">Autumn 2025, Autumn 2026</div>
+            <div>
+              <h4>Teaching Assistant, AA201: Introduction to Astronomy</h4>
+              <p class="where">IIT Indore</p>
+              <ul>
+                <li>Conducting tutorials and helping students understand astronomical concepts and solve problems.</li>
+                <li>Preparing tutorial solutions and supporting assignments and quizzes.</li>
+                <li>Assisting students through doubt-clearing sessions and academic guidance.</li>
+              </ul>
+            </div>
+          </div>
 
-  <footer>
-    <div class="container">
-      © 2026 Samir Sethi · Academic website · Built with GitHub Pages
-    </div>
-  </footer>
+          <div class="entry">
+            <div class="date">Spring 2026</div>
+            <div>
+              <h4>Teaching Assistant, Flight Mechanics and Classical Control</h4>
+              <p class="where">IIT Indore</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-group">
+          <h3>Conference participation</h3>
+
+          <div class="entry">
+            <div class="date">4–6 September 2026</div>
+            <div>
+              <h4>Oral presentation</h4>
+              <p class="where">Bridging Observations and Simulations in CGM–IGM Science, Central University of Himachal Pradesh, Dharamshala, India</p>
+              <p class="detail"><strong>Title:</strong> Forecasting Constraints on the Circumgalactic Medium with SKA Fast Radio Bursts</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="date">2025</div>
+            <div>
+              <h4>Attendee, Fast Radio Transient Sky (FTSky) 2025</h4>
+              <p class="where">International Centre for Theoretical Sciences (ICTS), Bengaluru, India</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-group">
+          <h3>Technical skills</h3>
+          <dl class="skills" style="margin:0">
+            <div class="skill">
+              <dt>Programming</dt>
+              <dd>Python, NumPy, Pandas, Matplotlib, SciPy, Astropy, emcee, Corner, GetDist</dd>
+            </div>
+            <div class="skill">
+              <dt>Research methods</dt>
+              <dd>Cosmological simulations, FRB dispersion-measure modelling, CGM gas-density modelling, Fisher-matrix forecasts, halo mass functions and catalogues, FRB population modelling, Bayesian parameter estimation</dd>
+            </div>
+            <div class="skill">
+              <dt>Computing and tools</dt>
+              <dd>Linux/Ubuntu, Jupyter Notebook, HPC and remote servers, Conda, Git/GitHub, LaTeX</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="cv-group">
+          <h3>Examinations</h3>
+          <div class="entry">
+            <div class="date"></div>
+            <div>Joint Admission Test for Masters (JAM); Graduate Aptitude Test in Engineering (GATE)</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          I welcome academic discussions and collaborations related to fast radio bursts,
+          the CGM–IGM, and cosmological baryon studies.
+        </p>
+        <p>
+          Email: <a href="mailto:phd2401121003@iiti.ac.in">phd2401121003@iiti.ac.in</a><br>
+          GitHub: <a href="https://github.com/samirsethi1998" target="_blank" rel="noopener noreferrer">github.com/samirsethi1998</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>© 2026 Samir Sethi. Hosted on GitHub Pages.</footer>
+  </div>
+
+  <script>
+    // Highlight the current section in the navigation
+    (function () {
+      var links = document.querySelectorAll('.side-nav a');
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+      if (!('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      Object.keys(map).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(f"Created revised website HTML: {path}")
-print(f"File size: {path.stat().st_size:,} bytes")
